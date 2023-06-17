@@ -29,8 +29,7 @@
                 <time datetime="Fri Jun 16 2023 19:00:00 GMT-0500 (Central Daylight Time)">June 17, 2023</time>
             </p>
             <p>In this post, I'll explain how to use the constrained forces method in VASP to simulate constant electric field using the <a href="https://github.com/seongjoojung/VASP-force-correction-patch">force correction patch</a> from my github. Explanation on the background of this method can be found in my <a href="https://chemrxiv.org/engage/chemrxiv/article-details/63fd7308897b18336f3a59aa">recent manuscript</a>.</p>
-<p>First, you need to calculate the Born effective charge tensor of your non-polar structure. For example, the non-polar structure of lead titanate would have following structure (space group 123, P4/mmm).</p>
-<p><code>CONTCAR:</code></p>
+<p>First, you need to calculate the Born effective charge tensor of your non-polar structure. For example, the non-polar structure of lead titanate would have following <code>CONTCAR:</code> (space group 123, P4/mmm)</p>
 <pre>
 <code>PbTiO3
    1.00000000000000
@@ -46,7 +45,7 @@ Direct
   0.0000000000000000  0.5000000000000000  0.5000000000000000
   0.5000000000000000  0.0000000000000000  0.5000000000000000
 </code></pre>
-<p>Here I've imposed constant strain condition in the lateral direction, so that it has same lattice parameter a as its ground state (space group 99, P4mm). This is optional. After you obtain the opimized structure of your non-polar system, you need to calculate the Born effective charge tensor using either <code>LEPSILON</code> or <code>LCALCEPS</code> tag. It is ideal to pair this calculation with second-derivative calculations using <code>IBRION=6</code> or <code>IBRION=8</code>, as the phonon calculation at the Gamma point provides useful informations.</p>
+<p>Here, I've imposed constant strain condition in the lateral direction, so that it has same lattice parameter a as its ground state (space group 99, P4mm). After you obtain the optimized structure of your non-polar system, you need to calculate the Born effective charge tensor using either <code>LEPSILON</code> or <code>LCALCEPS</code> tag. It is ideal to pair this calculation with second-derivative calculations using <code>IBRION=6</code> or <code>IBRION=8</code>, as the phonon calculation at the Gamma point provides useful informations.</p>
 <p><code>INCAR:</code></p>
 <pre>
 <code>#K-grid
@@ -104,7 +103,7 @@ LASPH = .TRUE.
     2     0.00000    -6.07061    -0.00000
     3     0.00000    -0.00000    -2.56131
 </code></pre>
-<p>Using this, we can not set the <code>FORCES_Z</code> tag in the <code>INCAR</code> for contrained-forces calculations. To apply electric field in the z direction, you only need the <code>FORCES_Z</code> tag as only the diagonal componenets in the Born effective charge tensor is present.</p>
+<p>Using this, we can now set the <code>FORCES_Z</code> tag in the <code>INCAR</code> for contrained-forces calculations. To apply electric field in the z direction, you only need the <code>FORCES_Z</code> tag as only the diagonal componenets in the Born effective charge tensor is present.</p>
 <p>We'll start by inducing small polarization to the non-polar structure.</p>
 <p><code>INCAR</code>:</p>
 <pre>
@@ -152,8 +151,8 @@ LFIX_XY   = .TRUE.
 #performance optimization
  NCORE = 8
 </code></pre>
-<p>Note that positive value of <code>SCALING</code> is used, which will simulate negative electric field. Because PbTiO<sub>3</sub> is ferroelectric, it will induce positive polarization.</p>
-<p>For your <code>POSCAR</code>, you cannot use the <code>CONTCAR</code> of your non-polar structure without setting <code>ISYM=0</code>. But since we know that the polarized PbTiO<sub>3</sub> is space group P4mm, we'll circumvent this by altering the <code>POSCAR</code> a little bit. In general, it is always good to compare your calculation with a trial calculation of <code>ISYM=0</code>.</p>
+<p>Note that positive value of <code>SCALING</code> is used, which will simulate negative electric field. Because PbTiO<sub>3</sub> is ferroelectric (and it is in the &quot;negative capacitance&quot; region), it will induce structure with positive polarization and lower energy, compared to your non-polar structure.</p>
+<p>For your <code>POSCAR</code>, you cannot use the <code>CONTCAR</code> of your non-polar structure without setting <code>ISYM=0</code>. But since we know that the space group of the polarized PbTiO<sub>3</sub> is P4mm, we'll circumvent this by altering the <code>POSCAR</code> a little bit. In general, it is always good to compare your calculation with a trial calculation of <code>ISYM=0</code>.</p>
 <p><code>POSCAR:</code></p>
 <pre>
 <code>PbTiO3
