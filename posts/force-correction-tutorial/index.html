@@ -157,7 +157,7 @@ LFIX_XY   = .TRUE.
 #performance optimization
  NCORE = 8
 </code></pre>
-<p>Note that positive value of <code>SCALING</code> is used, which will simulate negative electric field. Because PbTiO<sub>3</sub> is ferroelectric (and it is in the &quot;negative capacitance&quot; region), it will induce structure with positive polarization and lower energy, compared to your non-polar structure.</p>
+<p>Note that positive value of <code>SCALING</code> is used, which will simulate negative electric field. Because PbTiO<sub>3</sub> is ferroelectric (and it is in the &quot;negative capacitance&quot; region), it will induce structure with positive polarization and lower energy, compared to your non-polar structure. Always start with small value of <code>SCALING</code>, and use the structure of smaller <code>SCALING</code> as starting point of larger <code>SCALING</code>.</p>
 <p>For your <code>POSCAR</code>, you cannot use the <code>CONTCAR</code> of your non-polar structure without setting <code>ISYM=0</code>. But since we know that the space group of the polarized PbTiO<sub>3</sub> is P4mm, we'll circumvent this by altering the <code>POSCAR</code> a little bit. In general, it is always good to compare your calculation with a trial calculation of <code>ISYM=0</code>.</p>
 <p><code>POSCAR:</code></p>
 <pre>
