@@ -14,6 +14,10 @@
     <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png">
     <link rel="manifest" href="/favicons/site.webmanifest">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/rainbow.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
     <title>Seongjoo Jung's Website</title>
 </head>
 <body>
@@ -40,7 +44,7 @@
             <p>This post will demonstrate how to correctly calculate ionic contribution to permittivity (dielectric constant) from Born effective charges and dynamical matrices using DFT and DFPT. VASP is supposed to be able to calculate this using either <code>LEPSILON</code> (DFPT) tag, but it fails to calculate it correctly when there is an imaginary phonon at the Gamma point. The derivations can be found from <a href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.55.10355">Gonze and Lee (1997) <em>Phys. Rev. B</em> 55, 10355</a> (GL) and its citations. You can find the python script <a href="https://github.com/seongjoojung/VASP-scripts/blob/main/ionic_permittivity.py">in my github</a>.</p>
 <p>The ionic contribution to permittivity can be calculated using normal mode charges or mode oscillator strength. The first ingredient to calculating it is the &quot;eigendisplacements&quot; \(U \), which differ from eigenvectors of dynamical matrix (the eigenvectors of the dynamical matrix are called the mass-weighted normal modes) by a factor of square root of atomic weights. Exact definition of \(U \) is eq. (12) of GL.</p>
 <pre>
-<code>proton_mass = 1.673*10**-27  #kg
+<code class="language-python">proton_mass = 1.673*10**-27  #kg
 
 U = eigenvectors/(np.sqrt(proton_mass*atomic_weight)) #kg^-1/2
 </code></pre>
@@ -101,7 +105,7 @@ ICP[np.abs(ICP) < zero_ICP] = 0
 <p>The zero criterion for each values is read as input. You can first set it to 0 to check your values for the acoustic mode, and then choose a criterion that's higher than those values.</p>
 <p>As an example, ionic permittivity of P4/mmm SrTiO\(_3\) at -2% epitaxial strain is calculated as following using <code>LEPSILON</code> tag in VASP:</p>
 <pre>
-<code> MACROSCOPIC STATIC DIELECTRIC TENSOR IONIC CONTRIBUTION
+<code class="language-plaintext"> MACROSCOPIC STATIC DIELECTRIC TENSOR IONIC CONTRIBUTION
  -------------------------------------
          286.533    -0.000     0.000
           -0.000   286.532     0.000
@@ -117,6 +121,7 @@ ICP[np.abs(ICP) < zero_ICP] = 0
 <p>You can confirm that for the directions without imaginary phonon, the ionic contribution is calculated properly but not for the direction with imaginary phonon.</p>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
         </main>
     </main-container>
 
