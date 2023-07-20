@@ -41,8 +41,8 @@
             <p class="date">
                 <time datetime="Tue Jul 18 2023 19:00:00 GMT-0500 (Central Daylight Time)">July 19, 2023</time>
             </p>
-            <p>This post will demonstrate how to correctly calculate ionic contribution to permittivity (dielectric constant) from Born effective charges and dynamical matrices using DFT (and DFPT). VASP is supposed to be able to calculate this using <code>LEPSILON</code> (DFPT) tag, but it fails to calculate it correctly when there is an imaginary phonon at the Gamma point. The derivations can be found from <a href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.55.10355">Gonze and Lee (1997) <em>Phys. Rev. B</em> 55, 10355</a> (GL) and its citations. You can find the python script <a href="https://github.com/seongjoojung/VASP-scripts/blob/main/ionic_permittivity.py">in my github</a>.</p>
-<p>The ionic contribution to permittivity can be calculated using normal mode charges or mode oscillator strength. The first ingredient to calculating it is the &quot;eigendisplacements&quot; \(U \), which differ from eigenvectors of dynamical matrix (the eigenvectors of the dynamical matrix are called the mass-weighted normal modes) by a factor of square root of atomic weights. Exact definition of \(U \) is eq. (12) of GL.</p>
+            <p>This post will demonstrate how to correctly calculate ionic contribution to permittivity (dielectric constant) from Born effective charges and dynamical matrices using DFT (and DFPT). VASP is supposed to be able to calculate this using <code>LEPSILON</code> (DFPT) tag, but it fails to calculate it correctly when there is an imaginary phonon at the Gamma point. The derivations can be found in <a href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.55.10355">Gonze and Lee (1997) <em>Phys. Rev. B</em> 55, 10355</a> (GL) and its citations. You can find the Python script <a href="https://github.com/seongjoojung/VASP-scripts/blob/main/ionic_permittivity.py">in my GitHub</a>.</p>
+<p>The ionic contribution to permittivity can be calculated using normal mode charges or mode oscillator strength. The first ingredient to calculating it is the &quot;eigendisplacements&quot; \(U \), which differ from the eigenvectors of the dynamical matrix (called the mass-weighted normal modes) by a factor of the square root of atomic weights. The exact definition of \(U \) is eq. (12) of GL.</p>
 <pre>
 <code class="language-python">proton_mass = 1.673*10**-27  #kg
 
@@ -67,7 +67,7 @@ for i in range(n_ion):
 for i in range(3*n_ion):
     NMC[i] = BEC_reshape @ N[i]
 </code></pre>
-<p>The mode oscillator strength tensors can be calculated as matrix multiplication of \(U\) and reshaped Born effective charge tensor. They have units of C\(^2\)/kg in SI. (eq. (54) in GL)</p>
+<p>The mode oscillator strength tensors can be calculated from matrix multiplication of \(U\) and reshaped Born effective charge tensor. They have units of C\(^2\)/kg in SI. (eq. (54) in GL)</p>
 <pre>
 <code>MOS = np.zeros((3*n_ion, 3, 3)) #Mode oscilator strength, C^2/kg
 
@@ -80,7 +80,7 @@ for m in range(3*n_ion):
 <p>$$
 \epsilon^{\mathrm{ion}} =  \epsilon(w=0) - \epsilon^\infty
 $$</p>
-<p>But it is important to note that eq. (55) in GL is in Gaussian units, which we need to convert to SI. While not apparent in the equation, it is evident from the units of mode oscilator strength and eq. (54) that it contains 2nd order charge term. Converting equations of Gaussian units to SI can be quite confusing, but as long as you identify every component of your equation, you can convert it by substituting quantities using the <a href="https://en.wikipedia.org/wiki/Gaussian_units#General_rules_to_translate_a_formula">replacement table</a> (Table 2A). From eq. (55), in SI units:</p>
+<p>But it is important to note that eq. (55) in GL is in Gaussian units, which we need to convert to SI. While not apparent in the equation, it is evident from the units of mode oscilator strength and eq. (54) that it contains 2nd order charge term. Converting equations of Gaussian units to SI can be quite confusing, but as long as you identify every component of your equation you can convert it by substituting quantities using the <a href="https://en.wikipedia.org/wiki/Gaussian_units#General_rules_to_translate_a_formula">replacement table</a> (Table 2A). From eq. (55), in SI units:</p>
 <p>$$
 \epsilon^{\mathrm{ion}} =  \frac{1}{\Omega_0 \epsilon_0} \sum_{m} \frac{S_{m,\alpha\beta}}{w_m^2}
 $$</p>
