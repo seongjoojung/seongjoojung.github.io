@@ -7,21 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- HTML Meta Tags -->
-    <meta name="description" content="code updates">
+    <meta name="description" content="Long time no post!">
 
     <!-- Meta Meta Tags -->
     <meta property="og:url" content="">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="VASP6, vasp2cif and other updates">
-    <meta property="og:description" content="code updates">
+    <meta property="og:title" content="VASP 6, vasp2cif and other updates">
+    <meta property="og:description" content="Long time no post!">
     <meta property="og:image" content="https://seongjoojung.github.io/favicons/fav.png">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary">
     <meta property="twitter:domain" content="seongjoojung.github.io">
     <meta property="twitter:url" content="">
-    <meta name="twitter:title" content="VASP6, vasp2cif and other updates">
-    <meta name="twitter:description" content="code updates">
+    <meta name="twitter:title" content="VASP 6, vasp2cif and other updates">
+    <meta name="twitter:description" content="Long time no post!">
     <meta name="twitter:image" content="https://seongjoojung.github.io/favicons/fav.png">
 
     <link rel="icon" href="/favicons/favicon.ico" sizes="any"><!-- 32×32 -->
@@ -51,11 +51,23 @@
 
     <main-container>
         <main style="display: block;">
-            <h2>VASP6, vasp2cif and other updates</h2>
+            <h2>VASP 6, vasp2cif and other updates</h2>
             <p class="date">
                 <time datetime="Sat Mar 30 2024 19:00:00 GMT-0500 (Central Daylight Time)">March 31, 2024</time>
             </p>
-            <p>Testing again</p>
+            <p>Long time no post!</p>
+<p>I've had a few plans for new posts but other things in life were prioritized and were indefinitely procrastinated. In this post, I'd like to share some updates regarding the codes I've shared and future plans.</p>
+<p>I've updated my go-to DFT package from VASP 5 to VASP 6 and made the VASP 6 version for the <a href="https://github.com/seongjoojung/VASP-force-correction-patch">force correction patch</a>. I've only tested for VASP 6.4.1 but I'll be interested to find out if they work in other VASP 6 versions. A couple more INCAR tags were implemented, <code>LFIX_XY_COL</code> and <code>LFIX_Z_COL</code>. They fix Cartesian components of lattice vectors, instead of the lattices vectors themselves. VASP <code>POSCAR</code> file contains 3 lines for lattice vectors, which contain 3 Cartesian components. Starting from line 3, there are 9 floats which I'll index as follows:</p>
+<pre>
+<code>1 2 3
+4 5 6
+7 8 9
+</code></pre>
+<p><code>LFIX_XY</code> fixes values of 1, 2, 3, 4, 5, 6 whereas <code>LFIX_XY_COL</code> fixes values of 1, 2, 4, 5, 7, 8. This way, the epitaxial boundary condition can be applied in cases where the unit cell is not a conventional unit cell. In the same way, <code>LFIX_XY</code> fixes values of 7, 8, 9 whereas <code>LFIX_Z_COL</code> fixes values of 3, 6, 9.</p>
+<p>I've also shared a <a href="https://github.com/seongjoojung/vasp2cif-FINDSYM-7.1.4">script</a> for converting VASP format <code>POSCAR</code>/<code>CONTCAR</code> directly to a <code>.cif</code> file, which is very useful for mode decomposition. (Lots and lots of mode decomposition) It is based on the works of <a href="https://github.com/egplar/vasp2cif">previous authors</a> which haven't been updated in the last 11 years. I've made it compatible with Python 3 and the latest version of <code>findsym</code>.</p>
+<p>For now, I'm finishing up the antiferroelectric work on SrTiO<sub>3</sub>, which I shared at the APS March Meeting. APS members can review the until June 5th, 2024 <a href="https://apsapp.bravuratechnologies.com/APS-WEB/?id=33600024#!/agenda/33778029/details">here</a> (Log in, click the link again, and click the &quot;View Recording&quot; Button) - my presentation starts at 2:19:00. I'm not too proud to share this recording because I think I've had better rehearsal sessions than the actual presentation, but I'm excited about the content! I'll share more about this paper later.</p>
+<p>For the next posts after finishing the manuscript, I'm thinking of making a post about different multivariable optimization methods, which is a very helpful insight to have for DFT calculations. I also want to make a post about the Legendre transform and the different meanings of thermodynamic energies, hopefully all before summer.</p>
+<p>See you soon!</p>
 
         </main>
     </main-container>
