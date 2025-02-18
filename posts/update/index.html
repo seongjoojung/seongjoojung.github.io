@@ -65,7 +65,7 @@
 </code></pre>
 <p><code>LFIX_XY</code> fixes values of 1, 2, 3, 4, 5, 6 whereas <code>LFIX_XY_COL</code> fixes values of 1, 2, 4, 5, 7, 8. This way, the epitaxial boundary condition can be applied in cases where the unit cell is not a conventional unit cell. In the same way, <code>LFIX_XY</code> fixes values of 7, 8, 9 whereas <code>LFIX_Z_COL</code> fixes values of 3, 6, 9.</p>
 <p>I've also shared a <a href="https://github.com/seongjoojung/vasp2cif-FINDSYM-7.1.4">script</a> for converting VASP format <code>POSCAR</code>/<code>CONTCAR</code> directly to a <code>.cif</code> file, which is very useful for mode decomposition. (Lots and lots of mode decomposition) It is based on the works of <a href="https://github.com/egplar/vasp2cif">previous authors</a> which haven't been updated in the last 11 years. I've made it compatible with Python 3 and the latest version of <code>findsym</code>.</p>
-<p>For now, I'm finishing up the antiferroelectric work on SrTiO<sub>3</sub>, which I shared at the APS March Meeting. APS members can review the recording until June 5th, 2024 <a href="https://apsapp.bravuratechnologies.com/APS-WEB/?id=33600024#!/agenda/33778029/details">here</a> (Log in, click the link again, and click the &quot;View Recording&quot; Button) - my presentation starts at 2:19:00. I'm not too proud to share this recording because I think I've had better rehearsal sessions than the actual presentation, but I'm excited about the content! I'll share more about this paper later.</p>
+<p>For now, I'm finishing up the antiferroelectric work on SrTiO<sub>3</sub>, which I shared at the APS March Meeting. I'll share more about this paper later.</p>
 <p>For the next posts after finishing the manuscript, I'm thinking of making a post about different multivariable optimization methods, which is a very helpful insight to have for DFT calculations. I also want to make a post about the Legendre transform and the different meanings of thermodynamic energies, hopefully all before summer.</p>
 <p>See you soon!</p>
 
@@ -73,8 +73,11 @@
     </main-container>
 
     <footer>
-    <p>&copy; 2023-2024 Seongjoo Jung</p>
+    <p>&copy; 2023-2025 Seongjoo Jung</p>
 </footer>   
     
 </body>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </html>
