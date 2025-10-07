@@ -53,7 +53,7 @@
         <main style="display: block;">
             <h2>Normal mode charges, mode oscillator strengths and ionic contributions to dielectric constant</h2>
             <p class="date">
-                <time datetime="Tue Jul 18 2023 19:00:00 GMT-0500 (Central Daylight Time)">July 19, 2023</time>
+                <time datetime="Wed Jul 19 2023 09:00:00 GMT+0900 (Korean Standard Time)">July 19, 2023</time>
             </p>
             <p>This post will demonstrate how to correctly calculate ionic contribution to permittivity (dielectric constant) from Born effective charges and dynamical matrices using DFT (and DFPT). VASP is supposed to be able to calculate this using <code>LEPSILON</code> (DFPT) tag, but it fails to calculate it correctly when there is an imaginary phonon at the Gamma point. The derivations can be found in <a href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.55.10355">Gonze and Lee (1997) <em>Phys. Rev. B</em> 55, 10355</a> (GL) and its citations. You can find the Python script <a href="https://github.com/seongjoojung/VASP-scripts/blob/main/ionic_permittivity.py">in my GitHub</a>.</p>
 <p>The ionic contribution to permittivity can be calculated using normal mode charges or mode oscillator strength. The first ingredient to calculating it is the &quot;eigendisplacements&quot; \(U \), which differ from the eigenvectors of the dynamical matrix (called the mass-weighted normal modes) by a factor of the square root of atomic weights. The exact definition of \(U \) is eq. (12) of GL.</p>
