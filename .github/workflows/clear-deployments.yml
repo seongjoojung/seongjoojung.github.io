@@ -1,0 +1,29 @@
+name: Cleanup Old Deployments
+
+# This triggers the workflow every time you push to the main branch.
+on:
+  push:
+    branches:
+      - main  # Change this if your default branch is 'master'
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write  # Grants the workflow permission to delete deployments
+
+    steps:
+      - name: Delete Inactive GitHub Pages Deployments
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch all deployment IDs specifically for the github-pages environment
+          DEPLOYMENTS=$(gh api /repos/${{ github.repository }}/deployments?environment=github-pages --jq '.[].id')
+          
+          # Loop through each ID and attempt to delete it
+          for ID in $DEPLOYMENTS; do
+            echo "Attempting to delete deployment $ID..."
+            # GitHub automatically prevents the deletion of the currently active deployment.
+            # It will delete the old ones and simply output a safe error for the live one.
+            gh api --method DELETE /repos/${{ github.repository }}/deployments/$ID || echo "Skipped $ID (likely the active deployment)"
+          done
